@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+<head>
+	<title>Tapestry Hotel Booking Demo - ${pageTitle}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+</head>
+<body id="homepage">
+	<div class="container bs">
+		<div class="row">
+			<ul class="topnav">
+				<t:security.authenticated>
+					<li><span>${welcomeMessage}</span></li>
+					<li>
+						<a href="#" t:type="pageLink" t:page="index">${message:nav.findAHotel}</a>
+					</li>
+					<li>
+						<a href="#" t:type="pageLink" t:page="settings">${message:nav.settings}</a>
+					</li>
+					<li class="last">
+						<a href="#" t:type="actionlink" t:id="logout" id="logout">${message:nav.logout}</a>
+					</li>
+				<p:else>
+						<li>
+							<a href="#" t:type="pageLink" t:page="index">${message:nav.findAHotel}</a>
+						</li>
+						<li class="last">
+							<t:pageLink page="signin">${message:nav.login}</t:pageLink>
+						</li>
+				</p:else>
+				</t:security.authenticated>
+				<li class="locale-selection">${message:nav.language}: <t:eventLink event="en">En</t:eventLink></li>
+				<li class="last"><t:eventLink event="es">Es</t:eventLink></li>
+			</ul>
+		</div>
+
+		<div id="top" class="row">
+
+			<h1><img src="${context:/static/tapestry_s.png}" alt="Tapestry" id="tapestry" /></h1>
+
+			<div id="aside">${message:nav.welcomeToDemo}</div>
+			
+			<div class="clearer"></div>
+
+		</div>
+		
+		<div id="bar" class="row">
+			<t:alerts showDismissAll="false" class="alerts"/>
+			<strong>${message:nav.thisIsADemoApp}</strong>
+		</div>
+
+
+		<div class="row">
+			<div id="content" class="col-md-8">
+				<t:body />
+				<div class="clearer"></div>
+			</div>
+
+			<div class="col-md-4">
+			
+				<t:yourBookings />
+			
+				<h3 class="first">How this works</h3>
+				<t:delegate to="sidebar" />
+			</div>
+		</div>
+
+		<div id="footer" class="row">
+			Created with <a href="http://tapestry.apache.org/">Apache Tapestry 5.4</a> and JPA (with Hibernate 3). 
+			Get the source code of Hotel Booking at <a href="http://github.com/bobharner/tapestry5-hotel-booking-5.4/">Github</a>
+		</div>
+		<t:if test="symbol:tapestry.production-mode" negate="true">
+			<div class="alert alert-warning">WARNING: production mode = FALSE (performance and security consequences)</div>
+		</t:if>
+
+	</div>
+</body>
+</html>

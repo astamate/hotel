@@ -1,0 +1,79 @@
+<html t:type="layout" t:pageTitle="Hotel details"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+        <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+	<h2>${message:heading.hotelDetails}</h2>
+
+	<t:beanDisplay t:object="hotel" t:include="name,address,city,state,zip,country,stars">
+		<p:stars>
+			<t:hotelRating stars="hotel?.stars" />
+		</p:stars>
+	</t:beanDisplay>
+	
+	<form t:type="form" class="form-horizontal" t:id="startBookingForm" t:context="hotel">
+
+		<div class="form-group">
+			<label t:type="label" t:for="checkInDate" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="datefield" t:id="checkInDate" t:value="checkInDate"
+						t:validate="required"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label t:type="label" t:for="checkOutDate" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="datefield" t:id="checkOutDate" t:value="checkOutDate"
+						t:validate="required"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="form-submit col-md-offset-4 col-md-8">
+				<input type="submit" class="btn btn-primary" value="${message:button.checkAvailability}" />
+				or 
+				<a href="#" t:type="pagelink" t:page="index">${message:button.returnToSearch}</a>
+			</div>
+		</div>
+
+	</form>
+
+	<p:sidebar>
+        <p>
+           This page is rendered using the View.tml template file. Supporting code
+           is in the corresponding View.java class.
+        </p>
+        <p>
+           Here we're using Tapestry's
+           <a href="tapestry.apache.org/current/apidocs/org/apache/tapestry5/corelib/components/BeanDisplay.html">BeanDisplay</a>
+           component, &lt;t:beanDisplay&gt;, to render the properties of a
+           JavaBean. In this case the JavaBean selected on the previous page (whose
+           primary key can be seen now at the end of the URL of this page) is
+           rendered.
+        </p>
+        <p>Optional parameters on the BeanDisplay component control
+           which properties are shown here. We are hiding the "id" property,
+           for example.
+        </p>
+        <p>To display the stars, we've created a simple "HotelRating" component,
+            (with a HotelRating.tml template file and a matching
+            HotelRating.java class) that takes as a parameter the number of
+            stars that should be displayed.
+        </p>
+        <p xml:space="preserve">
+           The BeanDisplay component is convenient for quickly rendering data.
+           But it's almost as easy to lay out pages like this using conventional
+           html and Tapestry's
+           <a href="http://tapestry.apache.org/component-templates.html">expansions syntax</a>,
+           for example: <b>${message:name-label}:</b> $<t:outputRaw value="literal:{hotel.name}"/>.
+        </p>
+        <p>
+           Note that this page is <em>idempotent</em> (gives the same result every time,
+           no matter who visits it or when). That makes it bookmarkable, too.
+        </p>
+        <p>Browser "Back" buttons work perfectly in most Tapestry apps. Give it a try!
+        </p>
+	</p:sidebar>
+
+</html>

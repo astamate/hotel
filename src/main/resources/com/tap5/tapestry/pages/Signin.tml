@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html t:type="layout" t:title="Tapestry5-hotel-booking Sign In"
+      t:pageTitle="Members login"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<h2>${message:heading.signIn}</h2>
+
+	<div class="alert alert-warning">
+		Note: this is a demonstration site. Feel free to log in here using a
+		demo account or one that you create, but please do <em>not</em> enter sensitive information into this form.
+	</div>
+
+	<form t:type="form" class="form-horizontal" t:id="loginForm">
+		<t:hidden value="target"/>
+		<t:errors />
+		<div class="form-group">
+			<label t:type="label" t:for="username" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="textfield" t:id="username"/>
+				<div class="hint">${message:hintTryThese} <tt>${demo1Username}</tt>
+					${message:or} <tt>${demo2Username}</tt>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+				<label t:type="label" t:for="password" class="col-md-4"/>
+			<div class="col-md-8">
+				<input type="password" t:type="passwordfield" t:id="password" />
+					<div class="hint">${message:hintTryThese} <tt>${demo1Password}</tt>
+					${message:or} <tt>${demo2Password}</tt>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-offset-4 col-md-8">
+			<input type="submit" value="${message:nav.login}" class="btn btn-primary"/>
+			<div class="member">${message:needAnAccount}
+				<t:pagelink page="SignUp" context="target">${message:registerNow}</t:pagelink>
+			</div>
+		</div>
+		
+	 
+	</form>
+
+	<p:sidebar>
+        <p>This is the Sign In page (Signin.tml/Signin.java).
+        </p>
+        <p>You were sent here because you requested a page that requires you to
+        authenticate (log in). In this app, all pages require you to log in
+        except those whose Java class is annotated with @AnonymousAccess.
+        We've created a "component request filter" (AuthenticationFilter.java,
+        in this case) that enforces that rule. It redirected you to this
+        page because it did not find the
+        the @AnonymousAccess annotation in the Java class of the page you
+        requested.
+        </p>
+        <p>See
+        <a href="https://tapestry.apache.org/security.html">here</a> for
+        more information on this and other security approaches.
+        </p>
+        <p>One final note: the name of the page you requested was appended to
+        the URL of this page, and it will also be passed along when you submit
+        this form, or when you click the Register link, so that eventually,
+        after you have registered and/or logged in, you'll be taken back to the
+        page you wanted to go to.
+        </p>
+	</p:sidebar>
+  
+</html>

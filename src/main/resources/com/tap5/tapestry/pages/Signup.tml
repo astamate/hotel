@@ -1,0 +1,108 @@
+<html t:type="layout" title="Tapestry5-hotel-booking Sign In"
+      t:pageTitle="Register"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+<h2>Create your account</h2>
+
+<div class="alert alert-warning">
+    Note: this is a demonstration site. Feel free to create an account here,
+    but please do <em>not</em> enter sensitive information into this form.
+    Also, your account will be deleted after a period of time.
+</div>
+
+<form class="form-horizontal" t:id="registerForm">
+    <t:hidden value="target"/>
+    <t:errors/>
+
+    <div class="form-group">
+        <label t:type="label" t:for="username" class="col-md-4"/>
+        <div class="col-md-8">
+            <input t:type="textfield" t:id="username"
+                    placeholder="desired user name"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label t:type="label" t:for="fullname" class="col-md-4"/>
+        <div class="col-md-8">
+            <input t:type="textfield" t:id="fullname"
+                   placeholder="first and last names"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label t:type="label" t:for="email" class="col-md-4"/>
+        <div class="col-md-8">
+            <input t:type="textfield" t:id="email"
+                   placeholder="email address"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label t:type="label" t:for="password" class="col-md-4"/>
+        <div class="col-md-8">
+            <input t:type="passwordField" t:id="password"
+                    placeholder="desired password (at least 6 characters)"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label t:type="label" t:for="verifyPassword" class="col-md-4"/>
+        <div class="col-md-8">
+            <input t:type="passwordField" t:id="verifyPassword"
+                    placeholder="re-type your password"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label t:type="label" t:for="fcaptcha" class="col-md-4"/>
+        <div class="col-md-8">
+            <t:kaptchafield image="kaptcha" t:id="fcaptcha" placeholder="enter the text in the image below"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <t:kaptchaimage t:id="kaptcha" class="offset-md-4 col-md-8"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <input type="submit" value="Register" class="btn btn-default"/>
+        </div>
+    </div>
+
+    <div class="member">${message:alreadyMember}
+        <t:pagelink page="SignIn" context="target">${message:logInNow}</t:pagelink>
+    </div>
+</form>
+
+<p:sidebar>
+    <p>This page (Signup.tml/Signup.java) consists of a form with
+        Bootstrap-formatted labels and form fields. Unlike on the home page, this
+        form does <em>not</em> use Ajax and zones. It's a regular HTML form.
+    </p>
+    <p>The CAPTCHA image is produced by the Kaptcha component (&lt;t:kaptcha&gt;),
+        which is in a separate JAR provided by Tapestry rather than in Tapestry's
+        JAR. So if you're using Maven or Gradle or another dependency management
+        tool, you'll have to explicitly add the tapestry-kaptcha dependency.
+        See the pom.xml file of this project for an example.
+    </p>
+    <p>When you click the Register button, the form submission is handled by
+        methods within the Signup class (Signup.java). Form validation is
+        handled by the checkForm() method (because it has an @OnEvent annotation
+        indicating that it is an event handler for the "validate" event).
+        Form submission (after validation is successful) is handled by the
+        proceedSignup() method (because its @OnEvent annotation indicates that
+        it should handle a <em>successful</em> form submission).
+    </p>
+    <p>Tapestry has built-in support for both the JSR-303 beanvalidator API
+        and Tapestry's own @Validate annotation.
+
+    </p>
+</p:sidebar>
+
+
+</html>

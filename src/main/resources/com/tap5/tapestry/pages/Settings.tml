@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html t:type="layout" title="Tapestry5-hotel-booking Settings"
+      t:pageTitle="Change your password"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<t:remove>
+		This is the template for the "Settings" page, where the logged-in
+		user can change his/her password.
+	</t:remove>
+	<h2>${message:nav.settings} - ${message:changeYourPassword}</h2>
+
+	<form class="form-horizontal" t:id="settingsForm">
+
+		<t:errors/>
+		
+
+		<div class="form-group">
+			<label class="control-label col-md-4">${message:username-label}</label>
+			<div class="col-md-8">
+				${userName}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label t:type="label" t:for="oldPassword" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="passwordField" t:id="oldPassword"
+					placeholder="${message:oldPassword-label}"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label t:type="label" t:for="newPassword" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="passwordField" t:id="newPassword"
+					placeholder="${message:newPassword-label}"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label t:type="label" t:for="verifyPassword" class="col-md-4"/>
+			<div class="col-md-8">
+				<input t:type="passwordField" t:id="verifyPassword"
+					placeholder="${message:newPassword-label}"/>
+			</div>
+		</div>
+
+		<div class="col-md-offset-4 col-md-8">
+			<input type="submit" value="${message:button.save}" class="btn btn-default"/>
+			${message:or} 
+			<t:pageLink page="index">${message:button.cancel}</t:pageLink>
+		</div>
+	
+	</form>
+	
+	<p:sidebar>
+		<p>This page (Settings.tml/Settings.java) consists of a simple Tapestry
+		form. It also demonstrates the
+		<a href="http://tapestry.apache.org/5.3/apidocs/org/apache/tapestry5/corelib/components/Errors.html">errors</a>
+		component (&lt;t:errors&gt;), which is used to display errors that are not tied to a specific field. You
+		can see this by intentionally entering different "New Password" and "Verify Password" values here.
+		</p>
+	</p:sidebar>
+  
+</html>

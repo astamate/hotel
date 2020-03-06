@@ -1,0 +1,104 @@
+<html t:type="layout" t:pageTitle="Find a Hotel"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<h2>${message:nav.findAHotel}</h2>
+
+	<form t:type="form" async="true" t:id="searchForm" class="form-horizontal" >
+		<div class="form-group">
+			<label t:type="label" t:for="query" class="col-md-4"/>
+			<div class="col-md-8">
+				<input type="text" t:type="textfield" t:id="query" t:value="criteria.query"
+						placeholder="${message:enterCityOrHotel}" class="form-control"
+						validate="required"/>
+					<div class="hint">${message:hintTryThese} <tt>Marriott</tt> ${message:or} <tt>San Francisco</tt> ${message:or} <tt>*</tt></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label t:type="label" t:for="rowsPerPage" class="col-md-4"/>
+			<div class="col-md-2">
+				<select t:type="select" t:id="rowsPerPage" class="form-control"
+						t:value="criteria.rowsPerPage" t:model="literal:5,10,15,20"></select>
+			</div>
+		</div>
+		<div class="col-md-offset-4 col-md-8">
+			<input type="submit" t:type="submit" class="btn btn-primary" value="${message:findMatchingHotels}" />
+			<span t:type="ajaxloader" t:trigger="searchForm" t:zone="result"></span>
+		</div>
+	</form>
+
+	<!-- Result area -->
+	<div class="clearer"></div>
+		<div class="section result" id="resultArea">
+			<t:grid t:id="resultTable" id="resultTable" t:source="source" t:inPlace="true"
+					t:rowsPerPage="criteria.rowsPerPage" t:include="name,address,city,state,stars"
+					t:row="currentHotel">
+				<p:nameCell><t:pagelink t:context="currentHotel" t:page="view">${currentHotel.name}</t:pagelink></p:nameCell>
+				<p:cityStateCell>${currentHotel.city}, ${currentHotel.state}</p:cityStateCell>
+				<p:starsCell><t:hotelRating stars="currentHotel.stars"/></p:starsCell>
+				<p:empty>
+					<t:if test="criteria.query">	
+						<p class="empty-result">${message:no-result}</p>
+					</t:if>
+				</p:empty>
+			</t:grid>
+		</div>
+
+	<t:shoppingCart />
+	
+	<p:sidebar>
+
+        <p>This is the home page of the Tapestry Hotel Booking demonstration app.
+           This page is constructed by Tapestry
+           using an HTML-formatted template file, Index.tml. The small amount of
+           code supporting this page is in the correspondingly-named class file,
+           Index.java. <em>Generally, every Tapestry page has a template file and a
+           class file sharing the same name.</em>
+        </p>
+        <p>The overall layout of <em>all</em> pages in the app (the common header
+           and footer elements, for example) is controlled by the
+           Layout.tml template. This page (like most of the others) explicitly
+           wraps itself in the Layout component by specifying
+           &lt;html t:type="layout".../&gt; at the top of its template file.
+        </p>
+        <p>
+            This page uses Tapestry's <em>Form</em> component, taking advantage of its
+            <a href="http://tapestry.apache.org/ajax-and-zones.html">async</a> feature.
+            When you "submit" the form, Tapestry-supplied JavaScript submits an AJAX
+            request to the server and gets back a JSON object containg one or more
+            blocks of HTML, and updates just those portions of the page.
+        </p>
+        <p>
+            <b>You don't write any JavaScript (unless you want to).</b>
+        </p>
+        <p>Surprisingly, the app works just fine <em>without</em> JavaScript too,
+           which is good for SEO and accessibility.
+        </p>
+        <p>The &lt;t:zone&gt; component in this page's template file (Index.tml)
+            surrounds the HTML elements for the layout of content within the area
+            to be updated.
+            In this case, those HTML elements consist of an HTML table produced by
+            Tapestry's built-in <a href="http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/corelib/components/Grid.html">Grid</a>
+            component (which only appears when there are search results to display).
+        </p>
+        <p>
+            The <em>Grid</em> component (&lt;t:grid&gt;) generates an HTML
+            table from a collection of JavaBeans (one per table row)
+            with built-in JavaScript for sorting and pagination.
+            The built-in Hibernate module comes with an optimized version
+            of <em>GridDataSource</em> to create efficient database requests for page-at-a-time
+            retrieval of data.
+        </p>
+        <p>
+            Also, we're using the Grid component's built-in partial refresh option ("inPlace")
+            that allows pagination and sorting to occur without redrawing the whole page.
+        </p>
+        <p>Finally, the links in the first column are built with Tapestry's
+           <a href="http://tapestry.apache.org/current/apidocs/org/apache/tapestry5/corelib/components/PageLink.html">PageLink</a>
+           component, which in this case constructs a URL that includes an "activation context"
+           (the part of the URL after the page name) consisting of the primary key of
+           the record in the database corresponding to each table row.
+        </p>
+	</p:sidebar>  
+
+</html>
